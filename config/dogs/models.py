@@ -20,7 +20,13 @@ class Dog(models.Model):
     age = models.PositiveSmallIntegerField(verbose_name='Возраст (лет)')
     photo = models.ImageField(upload_to='dogs/', blank=True, null=True, verbose_name='Фото')
     description = models.TextField(blank=True, verbose_name='Описание')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dogs', verbose_name='Владелец', null=True, blank=True)
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='dogs',
+        null=True,
+        blank=True
+    )
     is_active = models.BooleanField(default=True, verbose_name='Активна')
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
@@ -54,6 +60,7 @@ class Pedigree(models.Model):
 
     def __str__(self):
         return f'Родословная {self.dog.name}'
+
 
 class Review(models.Model):
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE, related_name='reviews', verbose_name='Собака')

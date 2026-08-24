@@ -39,7 +39,13 @@ class Content(models.Model):
 
 class Question(models.Model):
     text = models.TextField(verbose_name='Вопрос')
-    content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name='questions', verbose_name='Контент', null=True, blank=True)
+    content = models.ForeignKey(
+        Content,
+        on_delete=models.CASCADE,
+        related_name='questions',
+        null=True,
+        blank=True
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions', verbose_name='Пользователь')
     answer = models.TextField(blank=True, null=True, verbose_name='Ответ')
     is_answered = models.BooleanField(default=False, verbose_name='Отвечен')

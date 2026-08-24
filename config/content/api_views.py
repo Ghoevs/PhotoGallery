@@ -1,5 +1,4 @@
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
+from rest_framework import generics, permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Section, Content, Question
 from .serializers import SectionSerializer, ContentSerializer, QuestionSerializer, QuestionAnswerSerializer
@@ -67,7 +66,6 @@ class ContentDetailView(generics.RetrieveUpdateDestroyAPIView):
             obj.views += 1
             obj.save()
         return obj
-
 
 
 class QuestionListCreateView(generics.ListCreateAPIView):

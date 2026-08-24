@@ -70,6 +70,19 @@ DATABASES = {
     }
 }
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'mssql',
+#        'NAME': os.getenv('DB_NAME', 'django_db'),
+#        'HOST': os.getenv('DB_HOST', 'localhost'),
+#        'PORT': os.getenv('DB_PORT', ''),
+#        'OPTIONS': {
+#            'driver': 'ODBC Driver 17 for SQL Server',
+#            'trusted_connection': 'yes',
+#        },
+#    }
+#}
+
 AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [

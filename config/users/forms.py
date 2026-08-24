@@ -1,7 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    AuthenticationForm,
+)
 from .models import User
-from .validators import password_validator
 from dogs.mixins import StyleFormMixin
 
 

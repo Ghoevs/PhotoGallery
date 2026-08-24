@@ -5,10 +5,9 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
 from .models import Dog, Breed, Pedigree, Review
-from .forms import DogForm, DogFullForm, PedigreeForm, ReviewForm
+from .forms import DogForm, PedigreeForm, ReviewForm
 from .services import send_views_notification
 from users.services import send_dog_created_email
-from users.models import User
 
 
 class IndexView(TemplateView):

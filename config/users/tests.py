@@ -1,6 +1,4 @@
-from django.test import TestCase
 from django.urls import reverse
-from django.core import mail
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from .models import User
