@@ -1,6 +1,7 @@
+/* Основные стили */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
+    background: #e4e7ec;
 }
 
 .sidebar {
@@ -30,6 +31,7 @@ body {
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #ffffff;
 }
 
 .photo-card:hover {
@@ -64,9 +66,150 @@ body {
     object-fit: cover;
 }
 
+#theme-toggle {
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Медиа-запросы */
 @media (max-width: 768px) {
     .sidebar {
         position: static;
         min-height: auto;
     }
+}
+
+/* ===== Тёмная тема ===== */
+body.dark-theme {
+    background: #1a1d23;
+    color: #e0e0e0;
+}
+
+body.dark-theme .card,
+body.dark-theme .photo-card {
+    background: #2d3436;
+    color: #e0e0e0;
+    border-color: #3a3f42;
+}
+
+body.dark-theme .card-header,
+body.dark-theme .card-footer {
+    background: #232729 !important;
+    color: #e0e0e0;
+    border-color: #3a3f42;
+}
+
+body.dark-theme .text-muted {
+    color: #a0a0a0 !important;
+}
+
+body.dark-theme .form-control,
+body.dark-theme .form-select {
+    background: #1a1d23;
+    color: #e0e0e0;
+    border-color: #3a3f42;
+}
+
+body.dark-theme .form-control:focus,
+body.dark-theme .form-select:focus {
+    background: #1a1d23;
+    color: #e0e0e0;
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+body.dark-theme ::placeholder,
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+    color: #a0a0a0 !important;
+    opacity: 1;
+}
+
+body.dark-theme ::-webkit-input-placeholder {
+    color: #a0a0a0 !important;
+}
+
+body.dark-theme .jumbotron-custom {
+    background: linear-gradient(135deg, #3a3f5a 0%, #4a3560 100%);
+}
+
+body.dark-theme .bg-light {
+    background: #232729 !important;
+}
+
+body.dark-theme .alert-info {
+    background: #1e3a4a;
+    color: #b0d0e0;
+    border-color: #2a4a5a;
+}
+
+body.dark-theme .alert-warning {
+    background: #4a3a1e;
+    color: #e0d0b0;
+    border-color: #5a4a2a;
+}
+
+body.dark-theme .alert-success {
+    background: #1e4a2a;
+    color: #b0e0c0;
+    border-color: #2a5a3a;
+}
+
+body.dark-theme .alert-danger {
+    background: #4a1e1e;
+    color: #e0b0b0;
+    border-color: #5a2a2a;
+}
+
+body.dark-theme .list-group-item {
+    background: #2d3436;
+    color: #e0e0e0;
+    border-color: #3a3f42;
+}
+
+body.dark-theme .page-link {
+    background: #2d3436;
+    color: #e0e0e0;
+    border-color: #3a3f42;
+}
+
+body.dark-theme .page-item.active .page-link {
+    background: #667eea;
+    border-color: #667eea;
+}
+
+body.dark-theme .btn-outline-secondary {
+    color: #e0e0e0;
+    border-color: #6a6a6a;
+}
+
+body.dark-theme .btn-outline-secondary:hover {
+    background: #6a6a6a;
+    color: #fff;
+}
+
+body.dark-theme .btn-outline-primary {
+    color: #8fa4f0;
+    border-color: #667eea;
+}
+
+body.dark-theme .btn-outline-primary:hover {
+    background: #667eea;
+    color: #fff;
+}
+
+body.dark-theme .bg-white {
+    background: #2d3436 !important;
+}
+
+body.dark-theme .border-bottom {
+    border-color: #3a3f42 !important;
+}
+
+body.dark-theme .modal-content {
+    background: #2d3436;
+    color: #e0e0e0;
 }
