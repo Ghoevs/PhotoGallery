@@ -4,7 +4,7 @@ from django.conf import settings
 
 def send_welcome_email(user):
     subject = f'Добро пожаловать, {user.username}!'
-    message = f'Спасибо за регистрацию в нашем питомнике!\n\nВаш email: {user.email}'
+    message = f'Спасибо за регистрацию в фотогалерее!\n\nВаш email: {user.email}'
     send_mail(
         subject,
         message,
@@ -26,9 +26,9 @@ def send_password_change_email(user):
     )
 
 
-def send_dog_created_email(user, dog):
-    subject = 'Создана новая карточка собаки'
-    message = f'Вы создали карточку собаки: {dog.name}\nПорода: {dog.breed.name}\nВозраст: {dog.age} лет'
+def send_photo_created_email(user, photo):
+    subject = 'Новая фотография добавлена'
+    message = f'Вы добавили фотографию: {photo.title}\nКатегория: {photo.category.name}'
     send_mail(
         subject,
         message,

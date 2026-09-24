@@ -1,27 +1,43 @@
 {% extends 'dogs/index.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Профиль</h2>
-    <div class="card">
-        <div class="card-body">
-            {% if user.avatar %}
-                <img src="{{ user.avatar.url }}" class="rounded-circle mb-3" width="100" height="100" alt="Аватар">
-            {% endif %}
-            <h5 class="card-title">{{ user.username }}</h5>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Имя:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-            <p><strong>Телефон:</strong> {{ user.phone|default:"Не указан" }}</p>
-            <p><strong>Дата рождения:</strong> {{ user.birth_date|default:"Не указана" }}</p>
-            <p><strong>О себе:</strong> {{ user.bio|default:"Не указано" }}</p>
-            <p><strong>Роль:</strong> {{ user.get_role_display }}</p>
-            <p><strong>Дата регистрации:</strong> {{ user.created_at|date:"d.m.Y" }}</p>
-            <a href="{% url 'users:profile_update' %}" class="btn btn-primary">Редактировать профиль</a>
-            <a href="{% url 'users:password_change' %}" class="btn btn-warning">Сменить пароль</a>
-            <a href="{% url 'users:password_reset' %}" class="btn btn-secondary">Сбросить пароль</a>
-            <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Выйти</button>
-            </form>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card photo-card">
+            <div class="card-body text-center py-5">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" class="rounded-circle mb-3" width="120" height="120" alt="Аватар">
+                {% else %}
+                    <i class="bi bi-person-circle text-primary" style="font-size: 120px;"></i>
+                {% endif %}
+                <h3 class="card-title">{{ user.username }}</h3>
+                <p class="text-muted">{{ user.role }}</p>
+                <div class="row mt-4">
+                    <div class="col-md-6 text-start">
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Имя:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                        <p><strong>Телефон:</strong> {{ user.phone|default:"Не указан" }}</p>
+                    </div>
+                    <div class="col-md-6 text-start">
+                        <p><strong>Дата рождения:</strong> {{ user.birth_date|default:"Не указана" }}</p>
+                        <p><strong>Дата регистрации:</strong> {{ user.created_at|date:"d.m.Y" }}</p>
+                        <p><strong>О себе:</strong> {{ user.bio|default:"Не указано" }}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'users:profile_update' %}" class="btn btn-primary">
+                        <i class="bi bi-pencil"></i> Редактировать
+                    </a>
+                    <a href="{% url 'users:password_change' %}" class="btn btn-warning">
+                        Сменить пароль
+                    </a>
+                    <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-box-arrow-right"></i> Выйти
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,21 +1,24 @@
 {% extends 'dogs/index.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Пользователи</h2>
-    <div class="row">
-        {% for user in users %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ user.username }}</h5>
-                        <p class="card-text">{{ user.email }}</p>
-                        <a href="{% url 'users:user_detail' user.id %}" class="btn btn-primary">Подробнее</a>
-                    </div>
+<h2 class="mb-4">Пользователи</h2>
+<div class="row">
+    {% for user in users %}
+        <div class="col-md-4 mb-4">
+            <div class="card photo-card">
+                <div class="card-body text-center">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" class="rounded-circle mb-3" width="60" height="60" alt="Аватар">
+                    {% else %}
+                        <i class="bi bi-person-circle text-primary" style="font-size: 60px;"></i>
+                    {% endif %}
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <a href="{% url 'users:user_detail' user.id %}" class="btn btn-sm btn-outline-primary">Профиль</a>
                 </div>
             </div>
-        {% empty %}
-            <p>Пользователей нет.</p>
-        {% endfor %}
-    </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">Пользователей нет.</div>
+    {% endfor %}
 </div>
 {% endblock %}

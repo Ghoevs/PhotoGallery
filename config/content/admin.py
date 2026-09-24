@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Section, Content, Question
+from .models import Section, Content
 
 
 @admin.register(Section)
@@ -15,11 +15,3 @@ class ContentAdmin(admin.ModelAdmin):
     list_filter = ('section', 'is_published')
     search_fields = ('title', 'body')
     readonly_fields = ('views', 'created_at', 'updated_at')
-
-
-@admin.register(Question)
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'user', 'is_answered', 'created_at')
-    list_filter = ('is_answered', 'created_at')
-    search_fields = ('text', 'answer', 'user__username')
-    readonly_fields = ('created_at', 'updated_at')

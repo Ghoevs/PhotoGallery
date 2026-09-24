@@ -6,14 +6,17 @@ from django.contrib.auth.views import (
     PasswordResetView, PasswordResetConfirmView
 )
 from django.contrib import messages
-from django.views.generic import CreateView, TemplateView, ListView, DetailView, UpdateView
+from django.views import View
+from django.views.generic import (
+    CreateView, TemplateView, ListView, DetailView, UpdateView
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import (
     CustomUserCreationForm, CustomPasswordChangeForm,
     CustomPasswordResetForm, CustomSetPasswordForm,
     ProfileUpdateForm
 )
-from .models import User
+from .models import User, Subscription
 from .services import send_welcome_email, send_password_change_email
 
 
@@ -115,3 +118,48 @@ class UserDetailView(DetailView):
     template_name = 'users/user_detail.html'
     context_object_name = 'profile_user'
     pk_url_kwarg = 'user_id'
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'users/privacy_policy.html'
+
+
+class SubscriptionPlansView(TemplateView):
+    template_name = 'users/subscription_plans.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['has_subscription'] = self.request.user.has_subscription
+        return context
+
+
+class SubscriptionCheckoutView(LoginRequiredMixin, TemplateView):
+    template_name = 'users/subscription_checkout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['plan'] = self.kwargs.get('plan', 'month')
+        plans = {
+            'month': {'name': 'На месяц', 'price': 299},
+            'year': {'name': 'На год', 'price': 1990},
+            'forever': {'name': 'Навсегда', 'price': 4990},
+        }
+        context['plan_info'] = plans.get(self.kwargs.get('plan'), plans['month'])
+        return context
+
+
+class SubscriptionSuccessView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        plan = self.kwargs.get('plan', 'month')
+        subscription, created = Subscription.objects.get_or_create(user=request.user)
+        subscription.activate(plan)
+        messages.success(request, 'Подписка успешно активирована!')
+        return redirect('users:subscription_success_page')
+
+    def get(self, request, *args, **kwargs):
+        return redirect('users:subscription_plans')
+
+
+class SubscriptionSuccessPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'users/subscription_success.html'

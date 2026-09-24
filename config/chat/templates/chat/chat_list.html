@@ -1,0 +1,32 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<h2 class="mb-4">Мои чаты</h2>
+<div class="row">
+    {% for chat in chats %}
+        <div class="col-md-6 mb-3">
+            <div class="card photo-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>{{ chat.photo.title }}</h5>
+                            <p class="text-muted mb-1">
+                                {% if chat.buyer == user %}
+                                    Продавец: {{ chat.seller.username }}
+                                {% else %}
+                                    Покупатель: {{ chat.buyer.username }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        {% if chat.unread_count_for %}
+                            <span class="badge bg-danger">{{ chat.unread_count_for }}</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'chat:chat_detail' chat.id %}" class="btn btn-sm btn-primary mt-2">Открыть чат</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">У вас пока нет чатов.</div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,12 +1,28 @@
 {% extends 'dogs/index.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Обновить профиль</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <a href="{% url 'users:profile' %}" class="btn btn-secondary">Отмена</a>
-    </form>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card photo-card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">Редактировать профиль</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

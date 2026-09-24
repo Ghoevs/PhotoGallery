@@ -1,0 +1,8 @@
+<div class="list-group">
+    <h5>Категории</h5>
+    {% for category in categories %}
+        <a href="{% url 'dogs:photo_list' %}?category={{ category.id }}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+    {% empty %}
+        <p class="text-muted">Категорий нет</p>
+    {% endfor %}
+</div>

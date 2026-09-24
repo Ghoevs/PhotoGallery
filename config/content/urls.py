@@ -8,6 +8,4 @@ urlpatterns = [
     path('sections/<int:pk>/', api_views.SectionDetailView.as_view(), name='section_detail'),
     path('contents/', api_views.ContentListCreateView.as_view(), name='content_list'),
     path('contents/<int:pk>/', api_views.ContentDetailView.as_view(), name='content_detail'),
-    path('questions/', api_views.QuestionListCreateView.as_view(), name='question_list'),
-    path('questions/<int:pk>/', api_views.QuestionDetailView.as_view(), name='question_detail'),
 ]

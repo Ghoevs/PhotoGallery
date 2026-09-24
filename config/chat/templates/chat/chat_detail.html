@@ -1,0 +1,33 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card photo-card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Чат с {{ other_user.username }}</h5>
+                <a href="{% url 'chat:chat_list' %}" class="btn btn-sm btn-outline-secondary">Назад</a>
+            </div>
+            <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+                {% for msg in chat_messages %}
+                    <div class="mb-3 {% if msg.sender == user %}text-end{% endif %}">
+                        <div class="d-inline-block p-3 rounded {% if msg.sender == user %}bg-primary text-white{% else %}bg-light{% endif %}" style="max-width: 70%;">
+                            <strong>{{ msg.sender.username }}</strong><br>
+                            {{ msg.text }}
+                            <small class="d-block mt-1 opacity-75">{{ msg.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-muted text-center">Сообщений пока нет. Начните беседу!</p>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <form method="post" action="{% url 'chat:send_message' chat.id %}" class="d-flex">
+                    {% csrf_token %}
+                    <input type="text" name="text" class="form-control me-2" placeholder="Введите сообщение..." required>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

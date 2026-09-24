@@ -1,0 +1,42 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card photo-card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">Оформление подписки</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>{{ plan_info.name }}</strong> — {{ plan_info.price }} ₽
+                </div>
+
+                <form method="post" action="{% url 'users:subscription_success' plan %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Номер карты</label>
+                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19" value="4242 4242 4242 4242">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Срок</label>
+                            <input type="text" class="form-control" placeholder="MM/YY" value="12/28">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">CVV</label>
+                            <input type="text" class="form-control" placeholder="000" maxlength="3" value="123">
+                        </div>
+                    </div>
+                    <div class="alert alert-warning small">
+                        <i class="bi bi-info-circle"></i> Это симуляция оплаты. Реальные деньги не списываются.
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-credit-card"></i> Оплатить {{ plan_info.price }} ₽
+                    </button>
+                    <a href="{% url 'users:subscription_plans' %}" class="btn btn-outline-secondary w-100 mt-2">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

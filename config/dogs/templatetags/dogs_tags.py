@@ -1,16 +1,15 @@
 from django import template
-from ..models import Breed
+from ..models import Category, Photo
 
 register = template.Library()
 
 
 @register.simple_tag
-def total_dogs():
-    from ..models import Dog
-    return Dog.objects.count()
+def total_photos():
+    return Photo.objects.count()
 
 
-@register.inclusion_tag('dogs/breed_menu.html')
-def breed_menu():
-    breeds = Breed.objects.all()
-    return {'breeds': breeds}
+@register.inclusion_tag('dogs/category_menu.html')
+def category_menu():
+    categories = Category.objects.all()
+    return {'categories': categories}

@@ -1,0 +1,67 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<div class="text-center mb-5">
+    <h1>Подписка</h1>
+    <p class="lead text-muted">Получите доступ ко всем возможностям галереи</p>
+</div>
+
+{% if has_subscription %}
+    <div class="alert alert-success text-center">
+        <i class="bi bi-check-circle"></i> У вас активная подписка. Спасибо за поддержку!
+    </div>
+{% endif %}
+
+<div class="row justify-content-center">
+    <div class="col-md-4 mb-4">
+        <div class="card photo-card h-100">
+            <div class="card-body text-center p-5">
+                <h4>На месяц</h4>
+                <h2 class="my-4 text-primary">299 ₽</h2>
+                <ul class="list-unstyled text-start mb-4">
+                    <li><i class="bi bi-check text-success"></i> Безлимитные отзывы</li>
+                    <li><i class="bi bi-check text-success"></i> Возможность продавать фото</li>
+                    <li><i class="bi bi-check text-success"></i> Чат с покупателями</li>
+                </ul>
+                <a href="{% url 'users:subscription_checkout' 'month' %}" class="btn btn-primary w-100">
+                    Оформить
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card photo-card h-100 border-primary">
+            <div class="card-body text-center p-5">
+                <span class="badge bg-primary mb-2">Популярный</span>
+                <h4>На год</h4>
+                <h2 class="my-4 text-primary">1990 ₽</h2>
+                <ul class="list-unstyled text-start mb-4">
+                    <li><i class="bi bi-check text-success"></i> Всё из месячного</li>
+                    <li><i class="bi bi-check text-success"></i> Скидка 45%</li>
+                    <li><i class="bi bi-check text-success"></i> Приоритетная поддержка</li>
+                </ul>
+                <a href="{% url 'users:subscription_checkout' 'year' %}" class="btn btn-primary w-100">
+                    Оформить
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card photo-card h-100">
+            <div class="card-body text-center p-5">
+                <h4>Навсегда</h4>
+                <h2 class="my-4 text-primary">4990 ₽</h2>
+                <ul class="list-unstyled text-start mb-4">
+                    <li><i class="bi bi-check text-success"></i> Все возможности</li>
+                    <li><i class="bi bi-check text-success"></i> Никогда не истекает</li>
+                    <li><i class="bi bi-check text-success"></i> Пожизненный доступ</li>
+                </ul>
+                <a href="{% url 'users:subscription_checkout' 'forever' %}" class="btn btn-primary w-100">
+                    Оформить
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

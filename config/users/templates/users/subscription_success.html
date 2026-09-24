@@ -1,0 +1,16 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card photo-card">
+            <div class="card-body text-center p-5">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 80px;"></i>
+                <h3 class="mt-4">Оплата прошла успешно!</h3>
+                <p class="text-muted">Подписка активирована</p>
+                <a href="{% url 'users:profile' %}" class="btn btn-primary mt-3">В профиль</a>
+                <a href="{% url 'dogs:photo_list' %}" class="btn btn-outline-secondary mt-3">К фотографиям</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

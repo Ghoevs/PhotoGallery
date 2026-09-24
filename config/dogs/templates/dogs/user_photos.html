@@ -1,0 +1,58 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Фотографии {{ profile_user.username }}</h2>
+        <p class="text-muted">Всего: {{ photos.count }}</p>
+    </div>
+    <a href="{% url 'users:user_detail' profile_user.id %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Назад в профиль
+    </a>
+</div>
+
+<div class="row">
+    {% for photo in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="card photo-card">
+                {% if photo.image %}
+                    <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}" style="height: 250px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ photo.title }}</h5>
+                    <p class="card-text text-muted">{{ photo.category.name }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-eye"></i> {{ photo.views }}
+                        </small>
+                        <a href="{% url 'dogs:photo_detail' photo.id %}" class="btn btn-sm btn-outline-primary">Смотреть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">У этого пользователя пока нет фотографий.</div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

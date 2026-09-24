@@ -8,11 +8,11 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Dogs API",
+        title="Фотогалерея API",
         default_version='v1',
-        description="API для питомника собак",
+        description="API для фотогалереи",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@dogs.local"),
+        contact=openapi.Contact(email="contact@gallery.local"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('dogs.urls')),
     path('users/', include('users.urls')),
     path('api/', include('content.urls')),
+    path('chat/', include('chat.urls')),
 
     # Документация API
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

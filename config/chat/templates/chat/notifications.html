@@ -1,0 +1,16 @@
+{% extends 'dogs/index.html' %}
+{% block content %}
+<h2 class="mb-4">Уведомления ({{ unread_total }})</h2>
+{% for msg in messages_list %}
+    <div class="card photo-card mb-3">
+        <div class="card-body">
+            <strong>{{ msg.sender.username }}</strong>
+            <small class="text-muted">{{ msg.created_at|date:"d.m.Y H:i" }}</small>
+            <p class="mt-2">{{ msg.text }}</p>
+            <a href="{% url 'chat:chat_detail' msg.chat.id %}" class="btn btn-sm btn-primary">Перейти в чат</a>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info">Новых уведомлений нет.</div>
+{% endfor %}
+{% endblock %}

@@ -1,25 +1,20 @@
 {% extends 'dogs/index.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Отзыв о {{ dog.name }}</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label>Оценка:</label>
-            <div>
-                {% for i in "12345" %}
-                    <label class="form-check-label me-3">
-                        <input type="radio" name="rating" value="{{ i }}" class="form-check-input"> {{ i }}
-                    </label>
-                {% endfor %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card photo-card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">Отзыв о "{{ photo.title }}"</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <a href="{% url 'dogs:photo_detail' photo.id %}" class="btn btn-outline-secondary">Отмена</a>
+                </form>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="id_text">Отзыв:</label>
-            <textarea name="text" id="id_text" class="form-control" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-        <a href="{% url 'dogs:dog_detail' dog.id %}" class="btn btn-secondary">Отмена</a>
-    </form>
+    </div>
 </div>
 {% endblock %}

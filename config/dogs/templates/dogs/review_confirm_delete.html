@@ -1,12 +1,18 @@
 {% extends 'dogs/index.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>Удалить отзыв?</h2>
-    <p>Вы уверены, что хотите удалить этот отзыв?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Удалить</button>
-        <a href="{% url 'dogs:dog_detail' review.dog.id %}" class="btn btn-secondary">Отмена</a>
-    </form>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card photo-card">
+            <div class="card-body text-center py-5">
+                <h3>Удалить отзыв?</h3>
+                <p class="text-muted">Вы уверены?</p>
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                    <a href="{% url 'dogs:photo_detail' review.photo.id %}" class="btn btn-outline-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

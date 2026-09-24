@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .models import Section, Content, Question
-from .serializers import SectionSerializer, ContentSerializer, QuestionSerializer, QuestionAnswerSerializer
-from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly, IsQuestionAuthorOrAdmin
+from .models import Section, Content
+from .serializers import SectionSerializer, ContentSerializer
+from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from .paginators import ContentPagination, StandardResultsSetPagination
 
 
@@ -66,46 +66,3 @@ class ContentDetailView(generics.RetrieveUpdateDestroyAPIView):
             obj.views += 1
             obj.save()
         return obj
-
-
-class QuestionListCreateView(generics.ListCreateAPIView):
-    serializer_class = QuestionSerializer
-    pagination_class = StandardResultsSetPagination
-    filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['text', 'answer']
-    ordering_fields = ['created_at', 'is_answered']
-    ordering = ['-created_at']
-
-    def get_queryset(self):
-        queryset = Question.objects.all()
-        content_id = self.request.query_params.get('content')
-        if content_id:
-            queryset = queryset.filter(content_id=content_id)
-        return queryset
-
-    def get_permissions(self):
-        if self.request.method == 'POST':
-            return [permissions.IsAuthenticated()]
-        return [permissions.AllowAny()]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = QuestionSerializer
-    permission_classes = [IsQuestionAuthorOrAdmin]
-
-    def get_queryset(self):
-        return Question.objects.all()
-
-    def get_serializer_class(self):
-        if self.request.method == 'PATCH' and self.request.user.is_staff:
-            return QuestionAnswerSerializer
-        return QuestionSerializer
-
-    def perform_update(self, serializer):
-        if 'answer' in serializer.validated_data and self.request.user.is_staff:
-            serializer.save(is_answered=True)
-        else:
-            serializer.save()
